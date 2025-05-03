@@ -40,4 +40,9 @@ class NoteController(
             it.toResponse()
         }
     }
+
+    @DeleteMapping(path = ["/{id}"])
+    fun deleteById(@PathVariable id: String) {
+        noteRepository.deleteById(ObjectId(id))
+    }
 }
