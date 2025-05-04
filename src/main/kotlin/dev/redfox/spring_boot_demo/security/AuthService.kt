@@ -2,7 +2,9 @@ package dev.redfox.spring_boot_demo.security
 
 import dev.redfox.spring_boot_demo.database.models.TokenPair
 import dev.redfox.spring_boot_demo.database.models.User
+import dev.redfox.spring_boot_demo.database.repository.RefreshTokenRepository
 import dev.redfox.spring_boot_demo.database.repository.UserRepository
+import org.bson.types.ObjectId
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.stereotype.Service
 
@@ -10,7 +12,8 @@ import org.springframework.stereotype.Service
 class AuthService(
     private val jwtService: JwtService,
     private val userRepository: UserRepository,
-    private val hashedEncoder: HashedEncoder
+    private val hashedEncoder: HashedEncoder,
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
     fun register(email: String, password: String): User =
         User(email = email, hashedPassword = hashedEncoder.encode(password))
@@ -31,4 +34,7 @@ class AuthService(
         )
     }
 
+    private fun storeRefreshToken(userId: ObjectId, rawRefreshToken: String) {
+
+    }
 }
